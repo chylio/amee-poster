@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMEE E-Poster - Medical Education Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .poster-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .authors {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .amee-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .nav-button {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 35px 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .nav-button .icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-button:hover .icon {
+            transform: rotate(360deg);
+        }
+
+        .nav-button h3 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .nav-button p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .conference-logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .content-area {
+            display: none;
+            padding: 40px;
+            background: white;
+            min-height: 400px;
+            border-top: 3px solid #667eea;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content-area h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .content-area p {
+            margin-bottom: 20px;
+            text-align: justify;
+            color: #34495e;
+        }
+
+        .content-area.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .back-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background: #5a67d8;
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .navigation {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+            
+            .poster-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .amee-badge {
+                position: static;
+                display: inline-block;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <div class="header">
+            <div class="amee-badge">AMEE 2025</div>
+            <div class="header-content">
+                <h1>Digital Skills Training Program for Healthcare Professionals</h1>
+                <div class="subtitle">Practical Applications of Generative Video Production</div>
+                <div class="authors">Hsiao-Chi Wu, Ya-Wen Tsai, I-Ling Yang, Liu Wen, Shu-Yi Hsu, Yen-Ju Wang<br>Chi Mei Medical Center, Tainan, Taiwan</div>
+            </div>
+        </div>
+
+        <div id="main-navigation" class="navigation">
+            <button class="nav-button" onclick="showContent('background')">
+                <div class="icon">🎯</div>
+                <h3>Background</h3>
+                <p>Context and rationale for digital skills training in healthcare</p>
+            </button>
+
+            <button class="nav-button" onclick="showContent('summary-work')">
+                <div class="icon">🔬</div>
+                <h3>Summary of Work</h3>
+                <p>Methods and implementation of the training program</p>
+            </button>
+
+            <button class="nav-button" onclick="showContent('summary-results')">
+                <div class="icon">📊</div>
+                <h3>Summary of Results</h3>
+                <p>Key findings and outcomes from the program</p>
+            </button>
+
+            <button class="nav-button" onclick="showContent('discussion')">
+                <div class="icon">💭</div>
+                <h3>Discussion and Conclusion</h3>
+                <p>Interpretation of results and implications</p>
+            </button>
+
+            <button class="nav-button" onclick="showContent('take-home')">
+                <div class="icon">💡</div>
+                <h3>Take Home Message(s)</h3>
+                <p>Key insights and practical applications</p>
+            </button>
+        </div>
+
+        <!-- 內容區域 (預留給後續開發) -->
+        <div id="background" class="content-area">
+            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <h2>Background</h2>
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                <p style="margin-bottom: 15px;">Generative video tools are increasingly being applied in healthcare workflows, including:</p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li style="margin-bottom: 8px;"><strong>Patient education</strong></li>
+                    <li style="margin-bottom: 8px;"><strong>Workflow optimization</strong></li>
+                    <li style="margin-bottom: 8px;"><strong>Professional communication</strong></li>
+                </ul>
+            </div>
+            <div style="background: #fff3cd; padding: 25px; border-radius: 10px; border-left: 4px solid #ffc107; margin-bottom: 20px;">
+                <p style="margin-bottom: 0;"><strong>Challenge:</strong> Many healthcare professionals lack familiarity, confidence, and positive attitudes toward these tools, limiting their effective application.</p>
+            </div>
+            <div style="background: #d1ecf1; padding: 25px; border-radius: 10px; border-left: 4px solid #17a2b8;">
+                <p style="margin-bottom: 0;"><strong>Study Aim:</strong> To evaluate the impact of a targeted educational program on participants' knowledge, attitudes, and skills.</p>
+            </div>
+        </div>
+
+        <div id="summary-work" class="content-area">
+            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <h2>Summary of Work</h2>
+            
+            <div style="background: #e8f4f8; padding: 25px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #17a2b8;">
+                <h3 style="color: #17a2b8; margin-bottom: 15px; font-size: 1.3rem;">📊 Study Design</h3>
+                <p style="margin-bottom: 0;"><strong>Pre-test and post-test design</strong> was adopted to assess the effectiveness of the educational intervention.</p>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.3rem;">🔍 Pre-Course Assessment</h3>
+                <p>Participants were surveyed to evaluate their baseline:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li style="margin-bottom: 8px;">Familiarity with the tools</li>
+                    <li style="margin-bottom: 8px;">Perceptions of their professional value</li>
+                    <li style="margin-bottom: 8px;">Confidence in practical application</li>
+                </ul>
+            </div>
+
+            <div style="background: #e7f3ff; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
+                <h3 style="color: #0066cc; margin-bottom: 15px; font-size: 1.3rem;">🎓 Course Components</h3>
+                <ul style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;"><strong>Structured instruction</strong></li>
+                    <li style="margin-bottom: 8px;"><strong>Hands-on practice</strong></li>
+                    <li style="margin-bottom: 8px;"><strong>Demonstrations</strong> of generative video tools in real-world scenarios</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff0e6; padding: 25px; border-radius: 10px; border-left: 4px solid #ff8c00;">
+                <h3 style="color: #ff8c00; margin-bottom: 15px; font-size: 1.3rem;">📈 Analysis</h3>
+                <p style="margin-bottom: 10px;">Post-course questionnaire analyzed changes in <strong>three domains</strong>:</p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                    <span style="background: white; padding: 8px 15px; border-radius: 20px; border: 2px solid #ff8c00; font-weight: bold;">Knowledge</span>
+                    <span style="background: white; padding: 8px 15px; border-radius: 20px; border: 2px solid #ff8c00; font-weight: bold;">Attitudes</span>
+                    <span style="background: white; padding: 8px 15px; border-radius: 20px; border: 2px solid #ff8c00; font-weight: bold;">Skills</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary-results" class="content-area">
+            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <h2>Summary of Results</h2>
+            
+            <div style="background: #d4edda; padding: 25px; border-radius: 10px; margin-bottom: 30px; border-left: 4px solid #28a745;">
+                <h3 style="color: #28a745; margin-bottom: 15px; font-size: 1.3rem;">🎯 Overall Impact</h3>
+                <p style="margin-bottom: 0;">The program <strong>significantly improved participants' familiarity with the tools, their perceived value, and confidence in practical applications.</strong></p>
+            </div>
+
+            <!-- Knowledge Section -->
+            <div style="background: #e3f2fd; padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                <h3 style="color: #1976d2; margin-bottom: 20px; font-size: 1.3rem;">📚 Knowledge Domain</h3>
+                <p style="margin-bottom: 20px;">Significant increase in familiarity with tools:</p>
+                
+                <div style="display: flex; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <h4 style="color: #d32f2f; margin-bottom: 15px;">Pre-Course</h4>
+                        <div style="background: white; border-radius: 8px; padding: 15px;">
+                            <div style="margin-bottom: 10px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>Not very familiar</span>
+                                    <strong>50%</strong>
+                                </div>
+                                <div style="background: #ffebee; height: 8px; border-radius: 4px;">
+                                    <div style="background: #f44336; height: 100%; width: 50%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>Completely unfamiliar</span>
+                                    <strong>33.33%</strong>
+                                </div>
+                                <div style="background: #ffebee; height: 8px; border-radius: 4px;">
+                                    <div style="background: #d32f2f; height: 100%; width: 33.33%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px;">
+                        <h4 style="color: #388e3c; margin-bottom: 15px;">Post-Course</h4>
+                        <div style="background: white; border-radius: 8px; padding: 15px;">
+                            <div style="text-align: center; padding: 20px; color: #388e3c;">
+                                <div style="font-size: 2rem; font-weight: bold;">📈</div>
+                                <div style="font-weight: bold; margin-top: 10px;">Significant Increase</div>
+                                <div>in Familiarity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attitudes Section -->
+            <div style="background: #fff3e0; padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                <h3 style="color: #f57c00; margin-bottom: 20px; font-size: 1.3rem;">💡 Attitudes Domain</h3>
+                <p style="margin-bottom: 20px;">Improvement in perceived value ratings:</p>
+                
+                <div style="display: flex; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <h4 style="color: #1976d2; margin-bottom: 15px;">Pre-Course</h4>
+                        <div style="background: white; border-radius: 8px; padding: 15px;">
+                            <div style="margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>Very valuable</span>
+                                    <strong>55.56%</strong>
+                                </div>
+                                <div style="background: #e3f2fd; height: 10px; border-radius: 5px;">
+                                    <div style="background: #2196f3; height: 100%; width: 55.56%; border-radius: 5px;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>Neutral</span>
+                                    <strong>11.11%</strong>
+                                </div>
+                                <div style="background: #fafafa; height: 10px; border-radius: 5px;">
+                                    <div style="background: #9e9e9e; height: 100%; width: 11.11%; border-radius: 5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 200px;">
+                        <h4 style="color: #388e3c; margin-bottom: 15px;">Post-Course</h4>
+                        <div style="background: white; border-radius: 8px; padding: 15px;">
+                            <div style="margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>Very valuable</span>
+                                    <strong>63.16%</strong>
+                                </div>
+                                <div style="background: #e8f5e8; height: 10px; border-radius: 5px;">
+                                    <div style="background: #4caf50; height: 100%; width: 63.16%; border-radius: 5px;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>Neutral</span>
+                                    <strong>0%</strong>
+                                </div>
+                                <div style="background: #fafafa; height: 10px; border-radius: 5px;">
+                                    <div style="background: #9e9e9e; height: 100%; width: 0%; border-radius: 5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div style="background: #f3e5f5; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="color: #7b1fa2; margin-bottom: 20px; font-size: 1.3rem;">🛠️ Skills Domain</h3>
+                <p style="margin-bottom: 20px;">Confidence levels showed dramatic improvement:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
+                        <h4 style="color: #7b1fa2; margin-bottom: 15px;">Image-Generation Tools</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="background: #ffebee; padding: 8px 12px; border-radius: 20px; color: #d32f2f; font-weight: bold;">61.11%</span>
+                            <span style="font-size: 1.5rem;">→</span>
+                            <span style="background: #e8f5e8; padding: 8px 12px; border-radius: 20px; color: #388e3c; font-weight: bold;">89.47%</span>
+                        </div>
+                        <div style="background: #f5f5f5; height: 8px; border-radius: 4px; margin-top: 10px;">
+                            <div style="background: linear-gradient(90deg, #f44336 61.11%, #4caf50 61.11%); height: 100%; width: 89.47%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
+                        <h4 style="color: #7b1fa2; margin-bottom: 15px;">Workflow Integration</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="background: #ffebee; padding: 8px 12px; border-radius: 20px; color: #d32f2f; font-weight: bold;">61.11%</span>
+                            <span style="font-size: 1.5rem;">→</span>
+                            <span style="background: #e8f5e8; padding: 8px 12px; border-radius: 20px; color: #388e3c; font-weight: bold;">89.47%</span>
+                        </div>
+                        <div style="background: #f5f5f5; height: 8px; border-radius: 4px; margin-top: 10px;">
+                            <div style="background: linear-gradient(90deg, #f44336 61.11%, #4caf50 61.11%); height: 100%; width: 89.47%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="discussion" class="content-area">
+            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <h2>Discussion and Conclusion</h2>
+            
+            <div style="background: #d4edda; padding: 25px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #28a745;">
+                <h3 style="color: #28a745; margin-bottom: 15px; font-size: 1.3rem;">✅ Key Findings</h3>
+                <p style="margin-bottom: 0;">This study demonstrates that <strong>structured educational interventions effectively enhance healthcare professionals' acceptance and ability to use generative video tools.</strong></p>
+            </div>
+
+            <div style="background: #e1f5fe; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
+                <h3 style="color: #0277bd; margin-bottom: 15px; font-size: 1.3rem;">🎯 Implications</h3>
+                <p>Improvements in knowledge, attitudes, and skills suggest that <strong>targeted training can help overcome barriers to technology adoption.</strong></p>
+            </div>
+
+            <div style="background: #fce4ec; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
+                <h3 style="color: #c2185b; margin-bottom: 15px; font-size: 1.3rem;">💡 Importance of Hands-on Learning</h3>
+                <p>The findings highlight the importance of incorporating <strong>hands-on opportunities in professional development programs</strong> to bridge the gap between emerging technologies and their practical applications in healthcare.</p>
+            </div>
+
+            <div style="background: #f3e5f5; padding: 25px; border-radius: 10px; border-left: 4px solid #9c27b0;">
+                <h3 style="color: #9c27b0; margin-bottom: 15px; font-size: 1.3rem;">🔮 Future Directions</h3>
+                <p style="margin-bottom: 0;">Future studies should further explore the <strong>long-term impacts and scalability</strong> of such programs across diverse professional settings.</p>
+            </div>
+        </div>
+
+        <div id="take-home" class="content-area">
+            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <h2>Take Home Message(s)</h2>
+            <div style="margin-top: 20px; background: #f8f9fa; padding: 30px; border-radius: 15px; border-left: 5px solid #667eea;">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: flex-start;">
+                        <span style="color: #667eea; font-weight: bold; margin-right: 10px;">•</span>
+                        <strong>Targeted training boosts healthcare professionals' readiness to adopt generative video tools.</strong>
+                    </li>
+                    <li style="margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: flex-start;">
+                        <span style="color: #667eea; font-weight: bold; margin-right: 10px;">•</span>
+                        <strong>Hands-on learning bridges technology and practical application in healthcare.</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <div class="contact-info">
+                    E-mail: chylio@hotmail.com
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent(sectionId) {
+            // 隱藏主導航
+            document.getElementById('main-navigation').style.display = 'none';
+            
+            // 隱藏所有內容區域
+            const contentAreas = document.querySelectorAll('.content-area');
+            contentAreas.forEach(area => {
+                area.classList.remove('active');
+            });
+            
+            // 顯示選定的內容區域
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function showNavigation() {
+            // 顯示主導航
+            document.getElementById('main-navigation').style.display = 'grid';
+            
+            // 隱藏所有內容區域
+            const contentAreas = document.querySelectorAll('.content-area');
+            contentAreas.forEach(area => {
+                area.classList.remove('active');
+            });
+        }
+
+        // 添加鍵盤導航支援
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                showNavigation();
+            }
+        });
+
+        // 平滑滾動效果
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
