@@ -278,8 +278,7 @@
             box-shadow: 0 3px 6px rgba(0,0,0,0.15);
         }
         .in-page-nav-button.active-page {
-            background: #667eea;
-            color: white;
+            /* 背景色和文字色由 JS 動態設定 */
             font-weight: bold;
         }
         @media (max-width: 900px) {
@@ -354,6 +353,9 @@
         <div class="content-header-nav">
             <button class="back-button" onclick="showNavigation()">← Back to Main Menu</button>
             <div class="in-page-nav">
+                <a href="#background" onclick="showContent('background'); return false;">
+                    <button class="in-page-nav-button">Background</button>
+                </a>
                 <a href="#summary-work" onclick="showContent('summary-work'); return false;">
                     <button class="in-page-nav-button">Summary of Work</button>
                 </a>
@@ -394,6 +396,9 @@
             <div class="in-page-nav">
                 <a href="#background" onclick="showContent('background'); return false;">
                     <button class="in-page-nav-button">Background</button>
+                </a>
+                <a href="#summary-work" onclick="showContent('summary-work'); return false;">
+                    <button class="in-page-nav-button">Summary of Work</button>
                 </a>
                 <a href="#summary-results" onclick="showContent('summary-results'); return false;">
                     <button class="in-page-nav-button">Summary of Results</button>
@@ -448,6 +453,9 @@
                 </a>
                 <a href="#summary-work" onclick="showContent('summary-work'); return false;">
                     <button class="in-page-nav-button">Summary of Work</button>
+                </a>
+                <a href="#summary-results" onclick="showContent('summary-results'); return false;">
+                    <button class="in-page-nav-button">Summary of Results</button>
                 </a>
                 <a href="#discussion" onclick="showContent('discussion'); return false;">
                     <button class="in-page-nav-button">Discussion & Conclusion</button>
@@ -534,6 +542,9 @@
                 <a href="#summary-results" onclick="showContent('summary-results'); return false;">
                     <button class="in-page-nav-button">Summary of Results</button>
                 </a>
+                <a href="#discussion" onclick="showContent('discussion'); return false;">
+                    <button class="in-page-nav-button">Discussion & Conclusion</button>
+                </a>
                 <a href="#take-home" onclick="showContent('take-home'); return false;">
                     <button class="in-page-nav-button">Take Home Message(s)</button>
                 </a>
@@ -542,7 +553,7 @@
         <h2>Discussion and Conclusion</h2>
         <div class="section-card" style="border-left-color:#28a745">
             <div class="section-card-title" style="color:#28a745;">✅ Key Findings</div>
-            <p>This study demonstrates that <strong>structured educational interventions effectively enhance healthcare professionals' acceptance and ability to use generative video tools.</strong><br>
+            <p>This study demonstrates that <strong>structured educational interventions effectively enhance healthcare professionals' acceptance and ability to use generative video tools.</strong><br[...]
             [Key findings details…]</p>
         </div>
         <div class="section-card" style="border-left-color:#0277bd">
@@ -551,7 +562,7 @@
         </div>
         <div class="section-card" style="border-left-color:#c2185b">
             <div class="section-card-title" style="color:#c2185b;">💡 Importance of Hands-on Learning</div>
-            <p>The findings highlight the importance of incorporating <strong>hands-on opportunities in professional development programs</strong> to bridge the gap between emerging technologies and practical application.</p>
+            <p>The findings highlight the importance of incorporating <strong>hands-on opportunities in professional development programs</strong> to bridge the gap between emerging technologies and p[...]
         </div>
         <div class="section-card" style="border-left-color:#9c27b0">
             <div class="section-card-title" style="color:#9c27b0;">🔮 Future Directions</div>
@@ -574,6 +585,9 @@
                 </a>
                 <a href="#discussion" onclick="showContent('discussion'); return false;">
                     <button class="in-page-nav-button">Discussion & Conclusion</button>
+                </a>
+                <a href="#take-home" onclick="showContent('take-home'); return false;">
+                    <button class="in-page-nav-button">Take Home Message(s)</button>
                 </a>
             </div>
         </div>
@@ -600,19 +614,40 @@
     </div>
 </div>
 <script>
-    // Function to show a specific content section and hide navigation
+    // 主題色對應
+    const sectionColors = {
+        "background": "#ffc107",
+        "summary-work": "#17a2b8",
+        "summary-results": "#28a745",
+        "discussion": "#9c27b0",
+        "take-home": "#667eea"
+    };
+
     function showContent(sectionId) {
         document.getElementById('main-navigation').style.display = 'none';
         document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active'));
-        document.getElementById(sectionId).classList.add('active');
+        const section = document.getElementById(sectionId);
+        section.classList.add('active');
         document.querySelectorAll('.in-page-nav-button').forEach(button => {
-            if (button.parentElement.href.includes(sectionId)) {
+            // 先還原所有按鈕樣式
+            button.classList.remove('active-page');
+            button.style.background = "";
+            button.style.color = "";
+            button.style.fontWeight = "";
+        });
+        // 處理當前section的in-page-nav-button
+        section.querySelectorAll('.in-page-nav-button').forEach(button => {
+            if (button.parentElement.href && button.parentElement.href.includes(sectionId)) {
                 button.classList.add('active-page');
-            } else {
-                button.classList.remove('active-page');
+                // 主題色: 背景色與白字
+                const theme = sectionColors[sectionId] || "#667eea";
+                button.style.background = theme;
+                button.style.color = "#fff";
+                button.style.fontWeight = "bold";
             }
         });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 捲到內容區塊
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     function showNavigation() {
         document.getElementById('main-navigation').style.display = 'grid';
@@ -623,7 +658,7 @@
     });
     document.querySelectorAll('.nav-link-modern').forEach(link => {
         link.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // 不再 scrollTo(0), showContent 會 scrollIntoView
         });
     });
     document.querySelectorAll('.back-button').forEach(button => {
@@ -635,6 +670,11 @@
             bar.style.width = '0';
             setTimeout(() => { bar.style.width = width; }, 100);
         });
+        // 預設進入頁面時，如果URL帶有hash自動切換
+        const hash = window.location.hash.replace('#','');
+        if (sectionColors[hash]) {
+            showContent(hash);
+        }
     });
 </script>
 </body>
