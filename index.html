@@ -233,6 +233,11 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             margin-bottom: 20px;
+            /* 對齊到左邊 */
+            display: block;
+            margin-left: 0;
+            margin-right: auto;
+            text-align: left;
         }
 
         .back-button:hover {
@@ -259,6 +264,9 @@
                 position: static;
                 display: inline-block;
                 margin-top: 20px;
+            }
+            .back-button {
+                width: 100%;
             }
         }
     </style>
@@ -308,7 +316,7 @@
 
         <!-- 內容區域 (預留給後續開發) -->
         <div id="background" class="content-area">
-            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <button class="back-button" onclick="showNavigation()">← Back to Main Menu</button>
             <h2>Background</h2>
             <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
                 <p style="margin-bottom: 15px;">Generative video tools are increasingly being applied in healthcare workflows, including:</p>
@@ -319,7 +327,7 @@
                 </ul>
             </div>
             <div style="background: #fff3cd; padding: 25px; border-radius: 10px; border-left: 4px solid #ffc107; margin-bottom: 20px;">
-                <p style="margin-bottom: 0;"><strong>Challenge:</strong> Many healthcare professionals lack familiarity, confidence, and positive attitudes toward these tools, limiting their effective application.</p>
+                <p style="margin-bottom: 0;"><strong>Challenge:</strong> Many healthcare professionals lack familiarity, confidence, and positive attitudes toward these tools, limiting their effective[...]
             </div>
             <div style="background: #d1ecf1; padding: 25px; border-radius: 10px; border-left: 4px solid #17a2b8;">
                 <p style="margin-bottom: 0;"><strong>Study Aim:</strong> To evaluate the impact of a targeted educational program on participants' knowledge, attitudes, and skills.</p>
@@ -327,7 +335,7 @@
         </div>
 
         <div id="summary-work" class="content-area">
-            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <button class="back-button" onclick="showNavigation()">← Back to Main Menu</button>
             <h2>Summary of Work</h2>
             
             <div style="background: #e8f4f8; padding: 25px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #17a2b8;">
@@ -366,12 +374,12 @@
         </div>
 
         <div id="summary-results" class="content-area">
-            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <button class="back-button" onclick="showNavigation()">← Back to Main Menu</button>
             <h2>Summary of Results</h2>
             
             <div style="background: #d4edda; padding: 25px; border-radius: 10px; margin-bottom: 30px; border-left: 4px solid #28a745;">
                 <h3 style="color: #28a745; margin-bottom: 15px; font-size: 1.3rem;">🎯 Overall Impact</h3>
-                <p style="margin-bottom: 0;">The program <strong>significantly improved participants' familiarity with the tools, their perceived value, and confidence in practical applications.</strong></p>
+                <p style="margin-bottom: 0;">The program <strong>significantly improved participants' familiarity with the tools, their perceived value, and confidence in practical applications.</stro[...]
             </div>
 
             <!-- Knowledge Section -->
@@ -507,12 +515,12 @@
         </div>
 
         <div id="discussion" class="content-area">
-            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <button class="back-button" onclick="showNavigation()">← Back to Main Menu</button>
             <h2>Discussion and Conclusion</h2>
             
             <div style="background: #d4edda; padding: 25px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #28a745;">
                 <h3 style="color: #28a745; margin-bottom: 15px; font-size: 1.3rem;">✅ Key Findings</h3>
-                <p style="margin-bottom: 0;">This study demonstrates that <strong>structured educational interventions effectively enhance healthcare professionals' acceptance and ability to use generative video tools.</strong></p>
+                <p style="margin-bottom: 0;">This study demonstrates that <strong>structured educational interventions effectively enhance healthcare professionals' acceptance and ability to use gener[...]
             </div>
 
             <div style="background: #e1f5fe; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
@@ -522,7 +530,7 @@
 
             <div style="background: #fce4ec; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
                 <h3 style="color: #c2185b; margin-bottom: 15px; font-size: 1.3rem;">💡 Importance of Hands-on Learning</h3>
-                <p>The findings highlight the importance of incorporating <strong>hands-on opportunities in professional development programs</strong> to bridge the gap between emerging technologies and their practical applications in healthcare.</p>
+                <p>The findings highlight the importance of incorporating <strong>hands-on opportunities in professional development programs</strong> to bridge the gap between emerging technologies a[...]
             </div>
 
             <div style="background: #f3e5f5; padding: 25px; border-radius: 10px; border-left: 4px solid #9c27b0;">
@@ -532,7 +540,7 @@
         </div>
 
         <div id="take-home" class="content-area">
-            <button class="back-button" onclick="showNavigation()">← 返回主選單</button>
+            <button class="back-button" onclick="showNavigation()">← Back to Main Menu</button>
             <h2>Take Home Message(s)</h2>
             <div style="margin-top: 20px; background: #f8f9fa; padding: 30px; border-radius: 15px; border-left: 5px solid #667eea;">
                 <ul style="list-style: none; padding: 0; margin: 0;">
@@ -598,6 +606,11 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // 讓所有 .back-button 都可跳轉回主選單
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.onclick = showNavigation;
         });
     </script>
 </body>
