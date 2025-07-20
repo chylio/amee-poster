@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMEE E-Poster - Medical Education Research</title>
     <style>
-        /* Basic reset and box-sizing */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        /* Body styling with gradient background and padding */
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        /* Main poster container styling */
         .poster-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -22,14 +19,12 @@
             border-radius: 20px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             overflow: hidden;
-            animation: fadeIn 1s ease-out; /* Fade-in animation */
+            animation: fadeIn 1s ease-out;
         }
-        /* Keyframe for fade-in animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Header section styling */
         .header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
@@ -38,7 +33,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Pseudo-element for header background animation */
         .header::before {
             content: '';
             position: absolute;
@@ -47,26 +41,20 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite; /* Rotation animation */
+            animation: rotate 20s linear infinite;
         }
-        /* Keyframe for header rotation animation */
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        /* Header content positioning */
         .header-content { position: relative; z-index: 2; }
-        /* Header title styling */
         .header h1 {
             font-size: 2.8rem;
             margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        /* Header subtitle styling */
         .header .subtitle { font-size: 1.3rem; opacity: 0.9; margin-bottom: 10px; }
-        /* Authors text styling */
         .authors { font-size: 1.1rem; opacity: 0.8; }
-        /* AMEE badge styling */
         .amee-badge {
             position: absolute;
             top: 20px;
@@ -77,65 +65,104 @@
             font-weight: bold;
             backdrop-filter: blur(10px);
         }
-        /* Navigation grid layout */
-        .navigation {
+        /* -- Modern Navigation Styles -- */
+        .navigation-modern {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 50px 40px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 36px;
+            padding: 48px 36px;
+            background: none;
         }
-        /* Navigation link styling */
-        .nav-link {
+        .nav-link-modern {
             text-decoration: none;
             display: block;
+            transition: transform 0.2s cubic-bezier(.4,0,.2,1);
         }
-        /* Navigation button styling */
-        .nav-button {
-            background: white;
-            border: none;
-            border-radius: 15px;
-            padding: 35px 30px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition for hover */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: left;
+        .nav-link-modern:focus .nav-card,
+        .nav-link-modern:hover .nav-card {
+            box-shadow: 0 8px 32px rgba(102,126,234,0.18), 0 2px 8px rgba(44,62,80,0.08);
+            transform: translateY(-4px) scale(1.015);
+            border-color: #667eea;
+        }
+        .nav-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            border-radius: 18px;
+            border: 2px solid #f0f2fa;
+            box-shadow: 0 2px 10px rgba(44,62,80,0.06);
+            padding: 38px 24px 30px 24px;
+            transition: box-shadow 0.2s, border 0.2s, transform 0.2s;
+            min-height: 240px;
             position: relative;
-            overflow: hidden;
-            transform: translateY(0);
         }
-        /* Navigation button hover/focus effects */
-        .nav-link:focus .nav-button, .nav-link:hover .nav-button {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        /* Icon styling within navigation buttons */
-        .nav-button .icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
+        .nav-card-icon {
+            font-size: 2.6rem;
+            background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            color: #fff;
+            border-radius: 14px;
+            width: 64px;
+            height: 64px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: white;
-            transition: transform 0.3s ease; /* Icon rotation on hover */
+            margin-bottom: 18px;
+            box-shadow: 0 4px 18px rgba(102,126,234,0.10);
         }
-        /* Icon rotation on hover */
-        .nav-link:hover .icon { transform: rotate(360deg);}
-        /* Navigation button heading styling */
-        .nav-button h3 {
-            font-size: 1.4rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-weight: 600;
+        .nav-card h3 {
+            font-size: 1.28rem;
+            color: #222d3d;
+            margin-bottom: 13px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.01em;
         }
-        /* Navigation button paragraph styling */
-        .nav-button p {
-            color: #7f8c8d;
-            line-height: 1.6;
-            font-size: 0.95rem;
+        .nav-card p {
+            color: #495678;
+            line-height: 1.72;
+            font-size: 1.01rem;
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .navigation-modern { grid-template-columns: 1fr; padding: 22px 0; gap: 24px; }
+            .nav-card { min-height: 0; padding: 28px 12px 22px 12px; }
+            .nav-card-icon { font-size: 2.15rem; width: 52px; height: 52px; margin-bottom: 12px; }
+        }
+        /* -- End Modern Navigation Styles -- */
+
+        /* Section card (modern content card) */
+        .section-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 3px 18px rgba(102,126,234,0.10), 0 1.5px 5px rgba(44,62,80,0.06);
+            padding: 32px 28px;
+            margin-bottom: 28px;
+            border-left: 5px solid #667eea;
+            transition: box-shadow 0.2s;
+        }
+        .section-card:last-child { margin-bottom: 0; }
+        .section-card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #4b3792;
+            letter-spacing: 0.01em;
+        }
+        .section-card ul, .section-card ol {
+            margin: 14px 0 0 22px;
+            color: #495678;
+            font-size: 1.04rem;
+            line-height: 1.7;
+        }
+        .section-card p {
+            color: #34495e;
+            font-size: 1.07rem;
+            margin-bottom: 13px;
+            line-height: 1.8;
+        }
+        .section-card .progress-bar-container {
+            margin-bottom: 14px;
         }
         /* Footer styling */
         .footer {
@@ -144,7 +171,6 @@
             padding: 30px 40px;
             text-align: center;
         }
-        /* Footer content layout */
         .footer-content {
             display: flex;
             justify-content: space-between;
@@ -152,11 +178,8 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        /* Contact info styling */
         .contact-info { font-size: 0.9rem; opacity: 0.8; }
-        /* Conference logo text styling */
         .conference-logo { font-size: 1.2rem; font-weight: bold; }
-        /* Content area styling (hidden by default) */
         .content-area {
             display: none;
             padding: 40px;
@@ -166,7 +189,6 @@
             line-height: 1.8;
             font-size: 1.1rem;
         }
-        /* Content area heading styling */
         .content-area h2 {
             color: #2c3e50;
             margin-bottom: 25px;
@@ -174,32 +196,22 @@
             border-bottom: 2px solid #667eea;
             padding-bottom: 10px;
         }
-        /* Content area paragraph styling */
-        .content-area p {
-            margin-bottom: 20px;
-            text-align: justify;
-            color: #34495e;
-        }
-        /* Active content area styling with animation */
         .content-area.active {
             display: block;
-            animation: slideIn 0.5s ease-out; /* Slide-in animation */
+            animation: slideIn 0.5s ease-out;
         }
-        /* Keyframe for slide-in animation */
         @keyframes slideIn {
             from { opacity: 0; transform: translateX(20px); }
             to { opacity: 1; transform: translateX(0); }
         }
-        /* Container for back button and in-page navigation */
         .content-header-nav {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            justify-content: space-between; /* Space out items */
-            align-items: center; /* Vertically align items */
-            margin-bottom: 20px; /* Space below this section */
-            gap: 15px; /* Gap between items when wrapped */
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
         }
-        /* Back button styling */
         .back-button {
             background: #667eea;
             color: white;
@@ -209,16 +221,13 @@
             cursor: pointer;
             font-size: 1rem;
             transition: all 0.3s ease;
-            /* Removed margin-bottom, display block, margin-left/right auto */
             text-align: left;
-            flex-shrink: 0; /* Prevent shrinking on smaller screens */
+            flex-shrink: 0;
         }
-        /* Back button hover effect */
         .back-button:hover {
             background: #5a67d8;
             transform: translateX(-5px);
         }
-        /* Progress bar container styling for charts */
         .progress-bar-container {
             background: #f5f5f5;
             border-radius: 8px;
@@ -228,7 +237,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Individual progress bar styling */
         .progress-bar {
             height: 100%;
             border-radius: 8px;
@@ -238,39 +246,35 @@
             line-height: 18px;
             padding-right: 8px;
             font-weight: bold;
-            transition: width 1s; /* Smooth width transition */
+            transition: width 1s;
             min-width: 36px;
         }
-        /* Color variations for progress bars */
         .progress-red { background: #f44336; }
         .progress-green { background: #4caf50; }
         .progress-blue { background: #2196f3; }
         .progress-orange { background: #ff9800; }
         .progress-gray { background: #bdbdbd; }
-
-        /* New styles for in-page navigation */
         .in-page-nav {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            justify-content: flex-end; /* Align to the right */
-            gap: 10px; /* Smaller gap between buttons */
-            /* Removed margin-top, padding-top, border-top as it's now in content-header-nav */
-            flex-grow: 1; /* Allow it to take available space */
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-grow: 1;
         }
         .in-page-nav-button {
             background: #e0e0e0;
             color: #333;
             border: none;
             border-radius: 20px;
-            padding: 10px 15px; /* Slightly smaller padding */
+            padding: 10px 15px;
             cursor: pointer;
             font-size: 0.9rem;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Lighter shadow */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .in-page-nav-button:hover {
             background: #d0d0d0;
-            transform: translateY(-1px); /* Smaller lift on hover */
+            transform: translateY(-1px);
             box-shadow: 0 3px 6px rgba(0,0,0,0.15);
         }
         .in-page-nav-button.active-page {
@@ -278,31 +282,20 @@
             color: white;
             font-weight: bold;
         }
-
-        /* Media queries for responsiveness */
+        @media (max-width: 900px) {
+            .section-card { padding: 18px 8px; border-radius: 10px; }
+            .section-card-title { font-size: 1.05rem; margin-bottom: 9px; }
+        }
         @media (max-width: 768px) {
             .header h1 { font-size: 2rem; }
-            .navigation { grid-template-columns: 1fr; padding: 30px 20px; }
             .poster-container { margin: 10px; border-radius: 15px; }
             .amee-badge { position: static; display: inline-block; margin-top: 20px; }
-            /* Adjust content-header-nav for small screens */
-            .content-header-nav {
-                flex-direction: column; /* Stack items vertically */
-                align-items: flex-start; /* Align to start */
-                gap: 10px; /* Smaller gap */
-            }
-            .back-button { width: auto; margin-bottom: 0; } /* Auto width and no bottom margin */
-            .in-page-nav {
-                justify-content: flex-start; /* Align to left on small screens */
-                width: 100%; /* Take full width */
-            }
-            .in-page-nav-button {
-                width: auto; /* Allow buttons to size naturally */
-                max-width: none; /* Remove max-width constraint */
-            }
+            .content-header-nav { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .back-button { width: auto; margin-bottom: 0;}
+            .in-page-nav { justify-content: flex-start; width: 100%; }
+            .in-page-nav-button { width: auto; max-width: none; }
         }
-        /* Focus outline for navigation links */
-        .nav-link:focus { outline: 2px solid #667eea; }
+        .nav-link-modern:focus { outline: 2px solid #667eea; }
     </style>
 </head>
 <body>
@@ -318,45 +311,44 @@
             </div>
         </div>
     </div>
-
-    <div id="main-navigation" class="navigation" role="navigation" aria-label="Main Menu">
-        <a class="nav-link" href="#background" onclick="showContent('background'); return false;" tabindex="0">
-            <div class="nav-button">
-                <div class="icon">🎯</div>
+    <!-- Modern main navigation -->
+    <div id="main-navigation" class="navigation-modern" role="navigation" aria-label="Main Menu">
+        <a class="nav-link-modern" href="#background" onclick="showContent('background'); return false;" tabindex="0">
+            <div class="nav-card">
+                <div class="nav-card-icon">🎯</div>
                 <h3>Background</h3>
                 <p>Context and rationale for digital skills training in healthcare</p>
             </div>
         </a>
-        <a class="nav-link" href="#summary-work" onclick="showContent('summary-work'); return false;" tabindex="0">
-            <div class="nav-button">
-                <div class="icon">🔬</div>
+        <a class="nav-link-modern" href="#summary-work" onclick="showContent('summary-work'); return false;" tabindex="0">
+            <div class="nav-card">
+                <div class="nav-card-icon">🔬</div>
                 <h3>Summary of Work</h3>
                 <p>Methods and implementation of the training program</p>
             </div>
         </a>
-        <a class="nav-link" href="#summary-results" onclick="showContent('summary-results'); return false;" tabindex="0">
-            <div class="nav-button">
-                <div class="icon">📊</div>
+        <a class="nav-link-modern" href="#summary-results" onclick="showContent('summary-results'); return false;" tabindex="0">
+            <div class="nav-card">
+                <div class="nav-card-icon">📊</div>
                 <h3>Summary of Results</h3>
                 <p>Key findings and outcomes from the program</p>
             </div>
         </a>
-        <a class="nav-link" href="#discussion" onclick="showContent('discussion'); return false;" tabindex="0">
-            <div class="nav-button">
-                <div class="icon">💭</div>
-                <h3>Discussion and Conclusion</h3>
+        <a class="nav-link-modern" href="#discussion" onclick="showContent('discussion'); return false;" tabindex="0">
+            <div class="nav-card">
+                <div class="nav-card-icon">💭</div>
+                <h3>Discussion & Conclusion</h3>
                 <p>Interpretation of results and implications</p>
             </div>
         </a>
-        <a class="nav-link" href="#take-home" onclick="showContent('take-home'); return false;" tabindex="0">
-            <div class="nav-button">
-                <div class="icon">💡</div>
+        <a class="nav-link-modern" href="#take-home" onclick="showContent('take-home'); return false;" tabindex="0">
+            <div class="nav-card">
+                <div class="nav-card-icon">💡</div>
                 <h3>Take Home Message(s)</h3>
                 <p>Key insights and practical applications</p>
             </div>
         </a>
     </div>
-
     <!-- Background Section -->
     <div id="background" class="content-area">
         <div class="content-header-nav">
@@ -377,22 +369,24 @@
             </div>
         </div>
         <h2>Background</h2>
-        <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
-            <p style="margin-bottom: 15px;">Generative video tools are increasingly being applied in healthcare workflows, including:</p>
-            <ul style="margin-left: 20px; margin-bottom: 15px;">
-                <li style="margin-bottom: 8px;"><strong>Patient education</strong></li>
-                <li style="margin-bottom: 8px;"><strong>Workflow optimization</strong></li>
-                <li style="margin-bottom: 8px;"><strong>Professional communication</strong></li>
+        <div class="section-card">
+            <div class="section-card-title">Application Scenarios</div>
+            <p>Generative video tools are increasingly being applied in healthcare workflows, including:</p>
+            <ul>
+                <li><strong>Patient education</strong></li>
+                <li><strong>Workflow optimization</strong></li>
+                <li><strong>Professional communication</strong></li>
             </ul>
         </div>
-        <div style="background: #fff3cd; padding: 25px; border-radius: 10px; border-left: 4px solid #ffc107; margin-bottom: 20px;">
-            <p style="margin-bottom: 0;"><strong>Challenge:</strong> Many healthcare professionals lack familiarity, confidence, and positive attitudes toward these tools, limiting their effectiveness.</p>
+        <div class="section-card" style="border-left-color:#ffc107">
+            <div class="section-card-title" style="color:#b18200;">Challenge</div>
+            <p>Many healthcare professionals lack familiarity, confidence, and positive attitudes toward these tools, limiting their effectiveness[...]</p>
         </div>
-        <div style="background: #d1ecf1; padding: 25px; border-radius: 10px; border-left: 4px solid #17a2b8;">
-            <p style="margin-bottom: 0;"><strong>Study Aim:</strong> To evaluate the impact of a targeted educational program on participants' knowledge, attitudes, and skills.</p>
+        <div class="section-card" style="border-left-color:#17a2b8">
+            <div class="section-card-title" style="color:#117d95;">Study Aim</div>
+            <p>To evaluate the impact of a targeted educational program on participants' knowledge, attitudes, and skills.</p>
         </div>
     </div>
-
     <!-- Summary of Work Section -->
     <div id="summary-work" class="content-area">
         <div class="content-header-nav">
@@ -413,30 +407,30 @@
             </div>
         </div>
         <h2>Summary of Work</h2>
-        <div style="background: #e8f4f8; padding: 25px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #17a2b8;">
-            <h3 style="color: #17a2b8; margin-bottom: 15px; font-size: 1.3rem;">📊 Study Design</h3>
-            <p style="margin-bottom: 0;"><strong>Pre-test and post-test design</strong> was adopted to assess the effectiveness of the educational intervention.</p>
+        <div class="section-card" style="border-left-color:#17a2b8">
+            <div class="section-card-title" style="color:#117d95;">📊 Study Design</div>
+            <p><strong>Pre-test and post-test design</strong> was adopted to assess the effectiveness of the educational intervention.</p>
         </div>
-        <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
-            <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.3rem;">🔍 Pre-Course Assessment</h3>
+        <div class="section-card">
+            <div class="section-card-title">🔍 Pre-Course Assessment</div>
             <p>Participants were surveyed to evaluate their baseline:</p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li style="margin-bottom: 8px;">Familiarity with the tools</li>
-                <li style="margin-bottom: 8px;">Perceptions of their professional value</li>
-                <li style="margin-bottom: 8px;">Confidence in practical application</li>
+            <ul>
+                <li>Familiarity with the tools</li>
+                <li>Perceptions of their professional value</li>
+                <li>Confidence in practical application</li>
             </ul>
         </div>
-        <div style="background: #e7f3ff; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
-            <h3 style="color: #0066cc; margin-bottom: 15px; font-size: 1.3rem;">🎓 Course Components</h3>
-            <ul style="margin-left: 20px;">
-                <li style="margin-bottom: 8px;"><strong>Structured instruction</strong></li>
-                <li style="margin-bottom: 8px;"><strong>Hands-on practice</strong></li>
-                <li style="margin-bottom: 8px;"><strong>Demonstrations</strong> of generative video tools in real-world scenarios</li>
+        <div class="section-card" style="border-left-color:#0066cc">
+            <div class="section-card-title" style="color:#0066cc;">🎓 Course Components</div>
+            <ul>
+                <li><strong>Structured instruction</strong></li>
+                <li><strong>Hands-on practice</strong></li>
+                <li><strong>Demonstrations</strong> of generative video tools in real-world scenarios</li>
             </ul>
         </div>
-        <div style="background: #fff0e6; padding: 25px; border-radius: 10px; border-left: 4px solid #ff8c00;">
-            <h3 style="color: #ff8c00; margin-bottom: 15px; font-size: 1.3rem;">📈 Analysis</h3>
-            <p style="margin-bottom: 10px;">Post-course questionnaire analyzed changes in <strong>three domains</strong>:</p>
+        <div class="section-card" style="border-left-color:#ff8c00">
+            <div class="section-card-title" style="color:#ff8c00;">📈 Analysis</div>
+            <p>Post-course questionnaire analyzed changes in <strong>three domains</strong>:</p>
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
                 <span style="background: white; padding: 8px 15px; border-radius: 20px; border: 2px solid #ff8c00; font-weight: bold;">Knowledge</span>
                 <span style="background: white; padding: 8px 15px; border-radius: 20px; border: 2px solid #ff8c00; font-weight: bold;">Attitudes</span>
@@ -444,7 +438,6 @@
             </div>
         </div>
     </div>
-
     <!-- Summary of Results Section -->
     <div id="summary-results" class="content-area">
         <div class="content-header-nav">
@@ -465,13 +458,13 @@
             </div>
         </div>
         <h2>Summary of Results</h2>
-        <div style="background: #d4edda; padding: 25px; border-radius: 10px; margin-bottom: 30px; border-left: 4px solid #28a745;">
-            <h3 style="color: #28a745; margin-bottom: 15px; font-size: 1.3rem;">🎯 Overall Impact</h3>
-            <p style="margin-bottom: 0;">The program <strong>significantly improved participants' familiarity with the tools, their perceived value, and confidence in practical applications.</strong></p>
+        <div class="section-card" style="border-left-color:#28a745">
+            <div class="section-card-title" style="color:#28a745;">🎯 Overall Impact</div>
+            <p>The program <strong>significantly improved participants' familiarity with the tools, their perceived value, and confidence in practical applications.</strong><br>
+            [Results details…]</p>
         </div>
-        <!-- Interactive Chart for Knowledge Domain -->
-        <div style="margin-bottom:30px;">
-            <h3>📚 Knowledge Domain</h3>
+        <div class="section-card">
+            <div class="section-card-title">📚 Knowledge Domain</div>
             <p>Familiarity with tools before and after course:</p>
             <div>
                 <div>Not very familiar</div>
@@ -492,9 +485,8 @@
                 </div>
             </div>
         </div>
-        <!-- Interactive Chart for Attitudes Domain -->
-        <div style="margin-bottom:30px;">
-            <h3>💡 Attitudes Domain</h3>
+        <div class="section-card">
+            <div class="section-card-title">💡 Attitudes Domain</div>
             <p>Perceived value ratings (before/after):</p>
             <div>
                 <div>Very valuable (Pre)</div>
@@ -509,9 +501,8 @@
                 </div>
             </div>
         </div>
-        <!-- Interactive Chart for Skills Domain -->
-        <div style="margin-bottom:20px;">
-            <h3>🛠️ Skills Domain</h3>
+        <div class="section-card">
+            <div class="section-card-title">🛠️ Skills Domain</div>
             <p>Confidence levels in practice:</p>
             <div>
                 <div>Image-Generation Tools (Before <span style="color:#f44336">61.11%</span> → After <span style="color:#4caf50">89.47%</span>)</div>
@@ -529,7 +520,6 @@
             </div>
         </div>
     </div>
-
     <!-- Discussion and Conclusion Section -->
     <div id="discussion" class="content-area">
         <div class="content-header-nav">
@@ -550,24 +540,24 @@
             </div>
         </div>
         <h2>Discussion and Conclusion</h2>
-        <div style="background: #d4edda; padding: 25px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #28a745;">
-            <h3 style="color: #28a745; margin-bottom: 15px; font-size: 1.3rem;">✅ Key Findings</h3>
-            <p style="margin-bottom: 0;">This study demonstrates that <strong>structured educational interventions effectively enhance healthcare professionals' acceptance and ability to use generative video tools.</strong></p>
+        <div class="section-card" style="border-left-color:#28a745">
+            <div class="section-card-title" style="color:#28a745;">✅ Key Findings</div>
+            <p>This study demonstrates that <strong>structured educational interventions effectively enhance healthcare professionals' acceptance and ability to use generative video tools.</strong><br>
+            [Key findings details…]</p>
         </div>
-        <div style="background: #e1f5fe; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
-            <h3 style="color: #0277bd; margin-bottom: 15px; font-size: 1.3rem;">🎯 Implications</h3>
+        <div class="section-card" style="border-left-color:#0277bd">
+            <div class="section-card-title" style="color:#0277bd;">🎯 Implications</div>
             <p>Improvements in knowledge, attitudes, and skills suggest that <strong>targeted training can help overcome barriers to technology adoption.</strong></p>
         </div>
-        <div style="background: #fce4ec; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
-            <h3 style="color: #c2185b; margin-bottom: 15px; font-size: 1.3rem;">💡 Importance of Hands-on Learning</h3>
-            <p>The findings highlight the importance of incorporating <strong>hands-on opportunities in professional development programs</strong> to bridge the gap between emerging technologies and practical applications.</p>
+        <div class="section-card" style="border-left-color:#c2185b">
+            <div class="section-card-title" style="color:#c2185b;">💡 Importance of Hands-on Learning</div>
+            <p>The findings highlight the importance of incorporating <strong>hands-on opportunities in professional development programs</strong> to bridge the gap between emerging technologies and practical application.</p>
         </div>
-        <div style="background: #f3e5f5; padding: 25px; border-radius: 10px; border-left: 4px solid #9c27b0;">
-            <h3 style="color: #9c27b0; margin-bottom: 15px; font-size: 1.3rem;">🔮 Future Directions</h3>
-            <p style="margin-bottom: 0;">Future studies should further explore the <strong>long-term impacts and scalability</strong> of such programs across diverse professional settings.</p>
+        <div class="section-card" style="border-left-color:#9c27b0">
+            <div class="section-card-title" style="color:#9c27b0;">🔮 Future Directions</div>
+            <p>Future studies should further explore the <strong>long-term impacts and scalability</strong> of such programs across diverse professional settings.</p>
         </div>
     </div>
-
     <!-- Take Home Message(s) Section -->
     <div id="take-home" class="content-area">
         <div class="content-header-nav">
@@ -588,7 +578,7 @@
             </div>
         </div>
         <h2>Take Home Message(s)</h2>
-        <div style="margin-top: 20px; background: #f8f9fa; padding: 30px; border-radius: 15px; border-left: 5px solid #667eea;">
+        <div class="section-card" style="border-left-color:#667eea;">
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: flex-start;">
                     <span style="color: #667eea; font-weight: bold; margin-right: 10px;">•</span>
@@ -601,7 +591,6 @@
             </ul>
         </div>
     </div>
-
     <div class="footer">
         <div class="footer-content">
             <div class="contact-info">
@@ -613,11 +602,9 @@
 <script>
     // Function to show a specific content section and hide navigation
     function showContent(sectionId) {
-        document.getElementById('main-navigation').style.display = 'none'; // Hide main navigation
-        document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active')); // Deactivate all content areas
-        document.getElementById(sectionId).classList.add('active'); // Activate the selected content area
-
-        // Update active state for in-page navigation buttons
+        document.getElementById('main-navigation').style.display = 'none';
+        document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
         document.querySelectorAll('.in-page-nav-button').forEach(button => {
             if (button.parentElement.href.includes(sectionId)) {
                 button.classList.add('active-page');
@@ -625,33 +612,25 @@
                 button.classList.remove('active-page');
             }
         });
-
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    // Function to show navigation and hide all content sections
     function showNavigation() {
-        document.getElementById('main-navigation').style.display = 'grid'; // Show main navigation
-        document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active')); // Deactivate all content areas
+        document.getElementById('main-navigation').style.display = 'grid';
+        document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active'));
     }
-    // Event listener for Escape key to return to navigation
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') showNavigation();
     });
-    // Event listener for navigation links to scroll to top on click
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link-modern').forEach(link => {
         link.addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
-    // Event listener for back buttons to show navigation
     document.querySelectorAll('.back-button').forEach(button => {
         button.onclick = showNavigation;
     });
-
-    // Optional: Animation for progress bars on DOM content loaded
     window.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.progress-bar').forEach(bar => {
-            // Temporarily set width to 0, then animate to actual width
             let width = bar.style.width;
             bar.style.width = '0';
             setTimeout(() => { bar.style.width = width; }, 100);
