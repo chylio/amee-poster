@@ -294,6 +294,11 @@
             .in-page-nav { justify-content: flex-start; width: 100%; }
             .in-page-nav-button { width: auto; max-width: none; }
         }
+        @media (max-width: 600px) {
+            .content-area {
+                padding: 10px 4px;
+            }
+        }
         .nav-link-modern:focus { outline: 2px solid #667eea; }
     </style>
 </head>
@@ -468,8 +473,7 @@
         <h2>Summary of Results</h2>
         <div class="section-card" style="border-left-color:#28a745">
             <div class="section-card-title" style="color:#28a745;">🎯 Overall Impact</div>
-            <p>The program <strong>significantly improved participants' familiarity with the tools, their perceived value, and confidence in practical applications.</strong><br>
-            [Results details…]</p>
+            <p>The program <strong>significantly improved participants' familiarity with the tools, their perceived value, and confidence in practical applications.</strong></p>
         </div>
         <div class="section-card">
             <div class="section-card-title">📚 Knowledge Domain</div>
@@ -629,25 +633,23 @@
         const section = document.getElementById(sectionId);
         section.classList.add('active');
         document.querySelectorAll('.in-page-nav-button').forEach(button => {
-            // 先還原所有按鈕樣式
             button.classList.remove('active-page');
             button.style.background = "";
             button.style.color = "";
             button.style.fontWeight = "";
         });
-        // 處理當前section的in-page-nav-button
         section.querySelectorAll('.in-page-nav-button').forEach(button => {
             if (button.parentElement.href && button.parentElement.href.includes(sectionId)) {
                 button.classList.add('active-page');
-                // 主題色: 背景色與白字
                 const theme = sectionColors[sectionId] || "#667eea";
                 button.style.background = theme;
                 button.style.color = "#fff";
                 button.style.fontWeight = "bold";
             }
         });
-        // 捲到內容區塊
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // 行動裝置上 scrollIntoView 可能會被頂部UI遮住，改用 offset
+        const y = section.getBoundingClientRect().top + window.scrollY - 20;
+        window.scrollTo({ top: y, behavior: 'smooth' });
     }
     function showNavigation() {
         document.getElementById('main-navigation').style.display = 'grid';
